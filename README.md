@@ -13,10 +13,86 @@
 
 [我的網頁](https://5a9g0018.github.io/topic/)
 ```cpp
-#include <iostream>
-using namespace std;
+#include <stdio.h>
+#include <stdlib.h>
 
-int main(){
-  return 0;
+int main(void)
+{
+    int n;
+    scanf("%d", &n);
+
+    int score[n];
+    for (int i = 0; i < n; i++)
+    {
+        scanf("%d", &score[i]);
+    }
+
+    //排序
+    for (int i = 0; i < n - 1; i++)
+    {
+        for (int j = i + 1; j < n; j++)
+        {
+            if (score[i] > score[j])
+            {
+                score[i] = score[i] ^ score[j];
+                score[j] = score[i] ^ score[j];
+                score[i] = score[i] ^ score[j];
+            }
+        }
+    }
+
+    //找出最低及格分數
+    int minPass = -1;
+    for (int i = 0; i < n; i++)
+    {
+        if (score[i] >= 60)
+        {
+            minPass = score[i];
+            break;
+        }
+    }
+
+    //找出最高不及格分數
+    int maxNoPass = -1;
+    for (int i = n - 1; i >= 0; i--)
+    {
+        if (score[i] < 60)
+        {
+            maxNoPass = score[i];
+            break;
+        }
+    }
+
+    //印出解答
+    for (int i = 0; i < n; i++)
+    {
+        printf("%d", score[i]);
+        if (i < n - 1)
+        {
+            printf(" ");
+        }
+    }
+    printf("\n");
+
+    if (maxNoPass == -1)
+    {
+        printf("best case\n");
+    }
+    else
+    {
+        printf("%d\n", maxNoPass);
+    }
+
+    if (minPass == -1)
+    {
+        printf("worst case\n");
+    }
+    else
+    {
+        printf("%d\n", minPass);
+    }
+
+    system("pause");
+    return 0;
 }
 ```
